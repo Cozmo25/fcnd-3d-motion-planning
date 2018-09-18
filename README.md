@@ -34,9 +34,11 @@ These scripts contain a basic planning implementation that includes...
 The functionality of the file is as follows:
 
 **States class**
+
 A class which contains the flight states that the drone can be set to adopt
 
 **MotionPlanning class**
+
 This is the main class of the program, which accepts the Drone class from the Udacidrone API as a parameter. The init function instantiates:
 * The connection to the drone
 * It's initial target position within the 3D grid
@@ -49,36 +51,47 @@ This is the main class of the program, which accepts the Drone class from the Ud
 Within the MotionPlanning there are several functions which control the flow of the code in order to effectively control the drone during it's mission:
 
 **local_position_callback**
+
 This function handles the callback when the drone's local position is updated. The function checks which flight state the drone is in and directs the flow of the code to either the `waypoint_transition` (if the drone has taken off or is navigating between waypoints), or the `landing_transition` if the waypoint list is empty and the drone's local velocity is < 1.
 
 **velocity_callback**
+
 If the drone's flight state is *Landing*, the drone is within 0.1 of the *global_home* altitude and if the *local_position* altitude is < 0.01 i.e. the drone has landed at it's destination, then this function triggers the `disarming_transition`
 
 **state_callback**
+
 This function is triggered whenever the drone's flight state is updated. It controls the flow of the control of the drone from initially arming it, to path planning and takeoff (and ultimately waypoint navigation to a desired location), and finally to disarming the drone.
 
 **arming_transition**
+
 Sets the flight state to *Arming*, arms the drone and allows the program to take control of it
 
 **takeoff_transition**
+
 Sets the flight state to *Takeoff* and instructs the drone to takeoff to its target altitude
 
 **waypoint_transition**
+
 Sets the flight state to *Waypoint*, sets the drone's target position to the next waypoint in the waypoints list and commands the drone to fly to that waypoint
 
 **landing_transition**
+
 Sets the flight state to *Landing* and instructs the drone to land
 
 **disarming_transition**
+
 Sets the flight state to *Disarming*, disarms the drone and releases control of the drone by the script
 
 **manual_transition**
+
 Sets the flight state to *Manual*, stops the drone's motors and changes the `in_mission` flag to False to indicate that the drone's mission is complete
 
 **send_waypoints**
+
 Sends the list of waypoints to the simulation environment for visualisation
 
 **plan_path**
+
 This function initially: Sets the flight state to *Planning*; sets the target altitute to the altitude argument set at runtime, or 5m by default; sets the safety distance to maintain around objects to the --safety argument provided at runtime, or 5m by default; and sets the drone's target position altitude to the target altitude metioned previously.
 
 Once these initial parameters are set motion planning can begin. Motion planning proceeds according to the following steps:
@@ -94,6 +107,7 @@ Once these initial parameters are set motion planning can begin. Motion planning
 10. Finally the waypoints are sent to the drone and simulator
 
 **start**
+
 Starts the flight logs, creates a connection to the drone and stops the logs once the drone is disconnected
 
 Note: Several of the drone commands such as landing, taking control, arming etc. are implemented in the Drone class by the Udacidrone API directly, so
@@ -102,30 +116,39 @@ they are not explained here but explanation can be found in the Udacidrone API d
 The `planning_utils.py` file contains several helper functions which facilitate the planning process. Briefly, these functions are:
 
 **create_grid**
+
 Returns a 2D representation of a 2D configuration space based on given obstable data, drone altitude and safety distance arguments
 
 **Action class**
+
 The action class represents the delta of the valid movement actions the drone can take relative to the current grid position, with an associated cost of performing the action. The class also has methods for reporting the cost of the action and the change in direction (delta in N / E / S / W)
 
 **valid_actions**
+
 Returns movements the drone can make given a grid and current node
 
 **a_star**
+
 A grid based implementation of A* search which returns a path from a given start point to a goal destination
 
 **heuristic**
+
 Calculates the Euclidean distance between a given point and the goal. The heuristic is used as an approximation to guide A* search and make it more efficient to return a path
 
 **point**
+
 Returns a 3D point as a numpy array
 
 **collinearity_check**
+
 Taken from the lesson exercises. Returns True if 3 points are collinear within the threshold set by Epsilon
 
 **prune_path**
+
 Prunes the path from the start point to the goal which was determined by A* search to remove unecessary waypoints using the `collinearty_check` function to determine if the points are in line
 
 **bres_prune**
+
 Uses Bresenham ray tracing instead of collinearity to prune the path of unecessary waypoints
 
 ## Alternate Implementation
