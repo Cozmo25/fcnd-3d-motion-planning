@@ -171,6 +171,7 @@ Video of the drone executing the plan:
 [![3D Motion Planning Grid](https://img.youtube.com/vi/o9ExeDQneaQ/0.jpg)](https://youtu.be/o9ExeDQneaQ "3D Motion Planning Grid")
 
 Here is a chart of the pruned route based on a grid plan:
+
 ![Pruned Grid Plan](charts/grid_route_pruned_37.797534_122.401195.png)
 
 Here are some statistics from the grid plan:
@@ -185,6 +186,7 @@ Video of the drone executing the plan:
 [![3D Motion Planning Graph](https://img.youtube.com/vi/v803syPlQRo/0.jpg)](https://youtu.be/v803syPlQRo "3D Motion Planning Graph")
 
 Here is a chart of the pruned route based on a grid plan:
+
 ![Pruned Graph Plan](charts/voronoi_route_37.797534_122.401195_s3.png)
 
 Here are some statistics from the grid plan:
