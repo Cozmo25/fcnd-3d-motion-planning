@@ -142,6 +142,9 @@ Here are some samples of routes planned with both a grid represpentation of the 
 The coordinates of the goal (in the simulator) are: Lat = 37.797534 Lon = 122.401195
 
 **Grid Based Plan**
+
+Video of the drone executing the plan:
+
 [![3D Motion Planning Grid](https://img.youtube.com/vi/o9ExeDQneaQ/0.jpg)](https://youtu.be/o9ExeDQneaQ "3D Motion Planning Grid")
 
 Here is a chart of the pruned route based on a grid plan:
@@ -153,6 +156,9 @@ Here are some statistics from the grid plan:
 * Time to complete planning: 133.61 secs
 
 **Graph Based Plan**
+
+Video of the drone executing the plan:
+
 [![3D Motion Planning Graph](https://img.youtube.com/vi/v803syPlQRo/0.jpg)](https://youtu.be/v803syPlQRo "3D Motion Planning Graph")
 
 Here is a chart of the pruned route based on a grid plan:
@@ -164,11 +170,13 @@ Here are some statistics from the grid plan:
 * Time to complete planning: 84.55 secs
 
 **Summary**
+
 For this goal location the graph plan returns a path to the goal in 63% of the time it took for the grid method. Although the pruned route of the graph plan had less waypoints (10 vs. 19), the drone actually took a longer path to the goal, mainly as a result of the graph maximising the distances between objects (we are also not required to return an optimal path for any methods here which is a much harder challenge to implement)
 
 I have included several comparisons of grid and graph based plans to reach the same point which are included in the charts folder for reference and its interesting to see the differences in the routes found for each method. Its also worth noting that its often necessary to reduce the safety margin for the graph plan method to 3m instead of the default 5m so that a graph can be built which reaches most of the open locations on the map, otherwise there are some parts of the map that the drone won't be able to reach.
 
 
+# Project Requirements
 
 ### Implementing Your Path Planning Algorithm
 
@@ -213,9 +221,6 @@ Here is the relevant code snippet:
     local_position = global_to_local(global_position, self.global_home)
 ```
 
-
-Meanwhile, here's a picture of me flying through the trees!
-![Forest Flying](./misc/in_the_trees.png)
 
 #### 3. Set grid start position from local position
 This is another step in adding flexibility to the start location. As long as it works you're good to go!
